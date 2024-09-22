@@ -9,14 +9,14 @@ def read_file_content(file_path):
         return file.read()
 
 # Function to create an EPUB book from text files
-def create_epub_from_text_files(folder_path, output_filename="output.epub"):
+def create_epub_from_text_files(folder_path, epub_title, output_filename):
     try:
         # Create a new EPUB book
         book = epub.EpubBook()
 
         # Set book metadata
         book.set_identifier("id123456")
-        book.set_title("Otherworldly Hotel")
+        book.set_title(epub_title)
         book.set_language("en")
 
         # Add the cover image
@@ -49,11 +49,14 @@ def create_epub_from_text_files(folder_path, output_filename="output.epub"):
 
             # Find the first non-empty paragraph for the chapter title
             chapter_title = None
-            for para in paragraphs:
-                para = para.strip()
-                if para:
-                    chapter_title = para
-                    break
+            if i == 0:  # If it's the first chapter (synopsis)
+                chapter_title = text_file.stem  # Set title as the file name
+            else:
+                for para in paragraphs:
+                    para = para.strip()
+                    if para:
+                        chapter_title = para
+                        break
 
             if not chapter_title:
                 print(f"No valid title found for chapter in file: {text_file}")
@@ -66,7 +69,7 @@ def create_epub_from_text_files(folder_path, output_filename="output.epub"):
                 if body_content:
                     body_content = f"<p>{body_content}</p>"
 
-                print(f"Adding synopsis (first chapter): {chapter_title}")
+                print(f"Adding synopsis (first chapter) with title: {chapter_title}")
                 print(f"Synopsis content preview: {body_content[:60]}...")  # Preview first 60 characters
 
                 # Create an EPUB chapter for synopsis without heading or CSS
@@ -101,13 +104,14 @@ def create_epub_from_text_files(folder_path, output_filename="output.epub"):
                 file_name=f"{text_file.stem}.xhtml",
                 content=chapter_html.encode('utf-8')  # Ensure content is bytes
             )
-            
+
             # Add chapter to the book
             book.add_item(chapter)
             chapters.append(chapter)
 
             if i > 0:  # Add CSS only for chapters after the first one
                 chapter.add_link(href="styles/nav.css", rel="stylesheet", type="text/css")
+
 
         # Define table of contents
         book.toc = chapters
@@ -160,6 +164,10 @@ if __name__ == "__main__":
     script_directory = Path(__file__).resolve().parent
     print(f"Script directory: {script_directory}")
 
+    # Prompt the user for the EPUB title and output file name
+    epub_title = input("Enter the title of the EPUB: ")
+    output_filename = input("Enter the output filename (with .epub extension): ")
+
     # Optionally, specify a subdirectory (uncomment if needed)
     # folder_path = script_directory / "subfolder_name"
 
@@ -170,4 +178,4 @@ if __name__ == "__main__":
     if not folder_path.exists():
         print(f"The folder path does not exist: {folder_path}")
     else:
-        create_epub_from_text_files(folder_path, output_filename="Otherworldly_Hotel.epub")
+        create_epub_from_text_files(folder_path, epub_title, output_filename)
