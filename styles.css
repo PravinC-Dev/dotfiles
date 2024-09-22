@@ -1,0 +1,254 @@
+/* credit: @mattharrison https://github.com/mattharrison/epub-css-starter-kit */
+/* This assumes geometric header shrinkage */
+/* Also, it tries to make h2 be 1em */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  /* Note kindle hates margin:0 ! (or margin-left or margin-top set) it inserts newlines galore */
+  /* margin: 0 */
+  margin-right: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  /* font: inherit */
+  vertical-align: baseline;
+}
+/* font plan- serif text, sans headers */
+h1, h2, h3, h4, h5, h6 {
+  hyphens: none !important;
+  -moz-hyphens: none !important;
+  -webkit-hyphens: none !important;
+  page-break-after: avoid;
+  page-break-inside: avoid;
+  text-indent: 0;
+  text-align: left;
+  font-family: Helvetica, Arial, sans-serif;
+}
+h1 {
+  font-size: 1.6em !important;
+  margin-bottom: 1.5em !important;
+  text-align: center !important;
+  /* Center the chapter title */
+}
+.title h1 {
+  margin-bottom: 0;
+  margin-top: 3.2em;
+}
+h1:before {
+  content: "" !important;
+  display: block !important;
+  font-size: 14px !important;
+  /*color: #ffffff !important;*/
+  letter-spacing: 5px !important;
+  margin: 10px auto !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+h2 {
+  text-indent: 0;
+  margin: 50px 0 0 0;
+  font-size: 1.25em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  text-align: center !important;
+  font-style: normal;
+  font-family: "Foglihtenno07calt",serif;
+}
+@font-face
+{
+font-family: "Foglihtenno07calt";
+font-weight: bold;
+font-style: normal;
+src: url("../fonts/Foglihtenno07calt-WpzEA.otf");
+}
+
+@media (prefers-color-scheme: dark) {
+  .chapter-ender {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  blockquote {
+    border-left: 4px solid #666;
+    color: #ccc;
+  }
+}
+/* Inner Monologue  */
+i {
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.7);
+}
+@media (prefers-color-scheme: dark) {
+  i {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+/* Image Styling */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+  border: 5px solid #ccc;
+}
+@media (prefers-color-scheme: dark) {
+  img {
+    border: 5px solid #444;
+  }
+}
+.toc a:hover {
+  text-decoration: underline;
+}
+@media (prefers-color-scheme: dark) {
+  .toc a {
+    color: #82b1ff;
+  }
+}
+p {
+  /* paperwhite defaults to sans */
+  font-family: "Palatino", "Times New Roman", Caecilia, serif;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  -webkit-hyphenate-lines: 2;
+  line-height: 1.5em;
+  margin-bottom: 1em;
+  text-align: justify;
+  text-indent: 1em;
+  orphans: 2;
+  widows: 2;
+}
+p.first-para, p.first-para-chapter, p.note-p-first {
+  text-indent: 0;
+}
+p.first-para-chapter::first-line {
+  /* handle run-in */
+  font-variant: small-caps;
+}
+p + p {
+  text-indent: 1.5em;
+}
+ul {
+  list-style-type: square;
+}
+ol {
+  list-style-type: upper-roman;
+}
+div.div-literal-block-admonition {
+  margin-left: 1em;
+  background-color: #ccc;
+}
+div.note, div.tip, div.hint {
+  margin: 1em 0 1em 0 !important;
+  background-color: #ccc;
+  padding: 1em !important;
+  /* kindle is finnicky with borders, bottoms dissappear, width is ignored */
+  border-top: 0 solid #ccc;
+  border-bottom: 0 dashed #ccc;
+  page-break-inside: avoid;
+}
+body {
+  font-size: 1em;
+}
+p.pseudo-title {
+  -webkit-hyphens: none;
+  hyphens: none;
+  -adobe-hyphenate: none;
+  -epub-hyphens: none;
+}
+p.preface-pseudo-title {
+  -webkit-hyphens: none;
+  hyphens: none;
+  -adobe-hyphenate: none;
+  -epub-hyphens: none;
+  page-break-before: always !important;
+  color: #594630;
+  margin: 0 0 1em 0;
+  text-indent: 0;
+  font-size: 2.5em;
+  text-align: center;
+}
+p.pseudo-subtitle {
+  -webkit-hyphens: none;
+  hyphens: none;
+  -adobe-hyphenate: none;
+  -epub-hyphens: none;
+}
+
+/* Blockquotes */
+blockquote {
+    margin: 1em;
+    padding: 0.5em;
+    font-style: italic;
+    background-color: var(--background-color);
+    border-left: 4px solid var(--border-color);
+}
+
+/* Superscript and Subscript */
+sup, sub {
+    font-size: 0.8em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+/* Code and Preformatted Text */
+code, kbd, samp, tt {
+    font-family: "Courier New", Courier, monospace;
+    background-color: var(--background-color);
+    padding: 0.2em 0.4em;
+    border-radius: 0.3em;
+}
+
+pre {
+    font-family: "Courier New", Courier, monospace;
+    background-color: var(--background-color);
+    padding: 1em;
+    white-space: pre-wrap;
+    margin: 1em 0;
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+}
+
+div.toc-title {
+  -webkit-hyphens: none;
+  hyphens: none;
+  -adobe-hyphenate: none;
+  -epub-hyphens: none;
+}
+.cover {
+  max-width: 100;
+  height: auto;
+}
+span.c13 {
+  font-size: 175%;
+  font-weight: bold;
+  font-weight: normal;
+}
+
+span.c14 {
+  font-variant: small-caps;
+}
+.decorative-line {
+  text-align: center;
+  margin: 5px 0;
+  font-size: 1.1em;
+  font-weight: bold;
+  letter-spacing: 0;
+  margin-bottom: 1.5em;
+}
+.ending-line{
+  text-align: center;
+  margin: 5px 0;
+  font-size: 1.1em;
+  font-weight: bold;
+  letter-spacing: 0;
+  margin-top: 1.5em;
+}
